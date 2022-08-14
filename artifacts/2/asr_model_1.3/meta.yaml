@@ -1,0 +1,16 @@
+artifact_uri: file:/./artifacts/2/asr_model_1.3/model_artifacts
+end_time: 1659924195701
+entry_point_name: ''
+experiment_id: '2'
+lifecycle_stage: active
+name: ''
+run_name: asr_model_1.3
+run_id: 95d1e7e807f94e5aaacf87d19a193437
+run_uuid: 95d1e7e807f94e5aaacf87d19a193437
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1659922818963
+status: 3
+tags: []
+user_id: Jithin Sasikumar

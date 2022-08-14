@@ -1,0 +1,58 @@
+Model: "sequential"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ batch_normalization (BatchN  (None, 49, 40)           160       
+ ormalization)                                                   
+                                                                 
+ conv1d (Conv1D)             (None, 49, 32)            3872      
+                                                                 
+ batch_normalization_1 (Batc  (None, 49, 32)           128       
+ hNormalization)                                                 
+                                                                 
+ max_pooling1d (MaxPooling1D  (None, 16, 32)           0         
+ )                                                               
+                                                                 
+ conv1d_1 (Conv1D)           (None, 16, 64)            6208      
+                                                                 
+ batch_normalization_2 (Batc  (None, 16, 64)           256       
+ hNormalization)                                                 
+                                                                 
+ max_pooling1d_1 (MaxPooling  (None, 5, 64)            0         
+ 1D)                                                             
+                                                                 
+ conv1d_2 (Conv1D)           (None, 5, 128)            24704     
+                                                                 
+ batch_normalization_3 (Batc  (None, 5, 128)           512       
+ hNormalization)                                                 
+                                                                 
+ max_pooling1d_2 (MaxPooling  (None, 2, 128)           0         
+ 1D)                                                             
+                                                                 
+ dropout (Dropout)           (None, 2, 128)            0         
+                                                                 
+ lstm (LSTM)                 (None, 2, 128)            131584    
+                                                                 
+ seq_self_attention (SeqSelf  (None, 2, 128)           8257      
+ Attention)                                                      
+                                                                 
+ lstm_1 (LSTM)               (None, 128)               131584    
+                                                                 
+ batch_normalization_4 (Batc  (None, 128)              512       
+ hNormalization)                                                 
+                                                                 
+ dropout_1 (Dropout)         (None, 128)               0         
+                                                                 
+ dense (Dense)               (None, 256)               33024     
+                                                                 
+ dense_1 (Dense)             (None, 64)                16448     
+                                                                 
+ dropout_2 (Dropout)         (None, 64)                0         
+                                                                 
+ dense_2 (Dense)             (None, 25)                1625      
+                                                                 
+=================================================================
+Total params: 358,874
+Trainable params: 358,090
+Non-trainable params: 784
+_________________________________________________________________

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Keyword Spotter - MLOps Demo</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='page.css') }}">
+</head>
+
+<body>
+    <div class="banner">
+        <div class="content">
+            <h1>Keyword Spotter</h1>
+            <p>Try out the deployed keyword spotting model trained on audio data. <br> Currently,
+                the model recognizes only short one second audio. </p>
+            <h2>Upload .wav audio file</h2>
+                <br>
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        {{message}}
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+                        
+            <form action="{{ url_for('transcribe')}}" method="post" enctype="multipart/form-data">
+                <input type="file" id = "fileinput" name="file"/>
+                <br>
+                <input type="submit" id="submitButton"  value="Transcribe"/>
+            </form>
+                   
+            {% if transcript != "" %}
+                <div id="ResultContainer">
+                    <h3 id="Transcription">{{recognized_keyword}}</h3>
+                    <br>
+                    <h3 id="probability">{{label_probability}}</h3>
+                </div>
+            {% endif %}
+
+        </div>
+    </div>
+
+</body>
+</html>

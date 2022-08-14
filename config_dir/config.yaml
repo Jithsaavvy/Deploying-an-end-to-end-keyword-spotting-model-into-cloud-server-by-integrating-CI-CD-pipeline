@@ -1,0 +1,20 @@
+params:
+  epochs: 100
+  learning_rate: 0.001
+  test_data_split_percent: 0.25
+  mfcc_length: 40
+  sampling_rate: 16000
+  n_mfcc: 49
+  batch_size: 64
+
+paths:
+  train_dir: ${hydra:runtime.cwd}/./dataset/train/ 
+  test_dir: ${hydra:runtime.cwd}/./dataset/test/
+  mlflow_tracking_uri: file:/${hydra:runtime.cwd}/./artifacts
+  model_artifactory_dir: ./artifacts/2/asr_model_1.3/model_artifacts/model/
+  audio_dir: ${hydra:runtime.cwd}/./dataset/audio
+
+names:
+  experiment_name: ASR_Exp
+  audio_file: ${hydra:runtime.cwd}/./recorded_four.wav
+  metric_name: val_accuracy

@@ -1,0 +1,1 @@
+bed,bird,cat,dog,down,eight,five,four,go,left,nine,no,off,on,one,right,seven,six,stop,three,tree,two,up,yes,zero
