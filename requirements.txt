@@ -23,7 +23,7 @@ pip<=22.1.2
 scikit-learn==1.1.1
 scipy==1.9.0
 sounddevice==0.4.4
-SoundFile==0.10.3.post1
+soundfile==0.10.3.post1
 tensorboard==2.9.1
 tensorboard-data-server==0.6.1
 tensorboard-plugin-wit==1.8.1
