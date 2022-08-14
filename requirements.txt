@@ -20,7 +20,6 @@ omegaconf==2.2.2
 pandas==1.4.3
 pillow==9.2.0
 pip<=22.1.2
-python==3.8
 scikit-learn==1.1.1
 scipy==1.9.0
 sounddevice==0.4.4
