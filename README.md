@@ -2,10 +2,6 @@
 
 This project promulgates a `pipeline` that `trains` end-to-end keyword spotting models using input audio files, `tracks` experiments by logging the model artifacts, parameters and metrics, `build` them as a web application followed by `dockerizing` them into a container and deploys the application containing trained model artifacts as a docker container into the cloud server with `CI/CD` integration.
 
-## Keyword Spotter in Heroku - Demo
-![]()
-
-_**Disclaimer:** This app is just a demo and not for realtime usage. The main objective is to get ML models into production in terms of deployment and CI/CD, from MLOps paradigm._
 ## Author
 
 - [@Jithin Sasikumar](https://www.github.com/Jithsaavvy)
@@ -13,7 +9,24 @@ _**Disclaimer:** This app is just a demo and not for realtime usage. The main ob
 ## Languages and Tools
 
 <div align=""><a href="https://www.python.org" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" alt="python" width="40" height="40"/></a><a href="https://www.tensorflow.org" target="_blank" rel="noreferrer"><img src="https://www.vectorlogo.zone/logos/tensorflow/tensorflow-icon.svg" alt="tensorflow" width="40" height="40"/></a><a href="https://www.docker.com/" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/docker/docker-original-wordmark.svg" alt="docker" width="40" height="40"/></a><a href="https://flask.palletsprojects.com/en/2.2.x/" target="_blank" rel="noreferrer"> <img src="https://banner2.cleanpng.com/20180704/sv/kisspng-flask-python-web-framework-bottle-microframework-django-5b3d0ba62504c0.3512153115307273341516.jpg" alt="flask" width="95" height="43"/></a><a href="https://github.com/features/actions" target="_blank" rel="noreferrer"> <img src="https://res.cloudinary.com/practicaldev/image/fetch/s--2mFgk66y--/c_limit,f_auto,fl_progressive,q_80,w_375/https://dev-to-uploads.s3.amazonaws.com/uploads/badge/badge_image/78/github-actions-runner-up-badge.png" alt="actions" width="52" height="49"/></a><a href="https://numpy.org/" target="_blank" rel="noreferrer"> <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/NumPy_logo_2020.svg/768px-NumPy_logo_2020.svg.png?20200723114325" alt="numpy" width="95" height="43"/></a> <a href="https://hydra.cc/docs/intro/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/facebookresearch/hydra/master/website/static/img/Hydra-Readme-logo2.svg" alt="hydra" width="98" height="37"/></a> <a href="https://www.mlflow.org/docs/latest/python_api/mlflow.html" target="_blank" rel="noreferrer"> <img src="https://www.mlflow.org/docs/latest/_static/MLflow-logo-final-black.png" alt="mlflow" width="98" height="44"/></a> <a href="https://www.heroku.com/platform" target="_blank" rel="noreferrer"> <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Heroku_logo.svg/2560px-Heroku_logo.svg.png" alt="heroku" width="107" height="43"/></a> </div>
+ 
+<br>
 
+## Keyword Spotter in Heroku - Demo
+
+_**Link**: Will be updated. Please check the `Disclaimer` below the screenshot for more !!!_
+
+| ![input](./images/heroku_in.PNG) |
+|:--:|
+| <b>Figure 1a: App demo - Audio input to app for predicting keyword from trained model artifact</b>|
+
+| ![input](./images/heroku_out.PNG) |
+|:--:|
+| <b>Figure 1b: App demo - Predicted keyword with probability</b>|
+
+_**Disclaimer:**_ <br>
+_1. This app is just a demo and not for realtime usage. The main objective is to get ML models into production in terms of deployment and CI/CD, from MLOps paradigm_. <br>
+_2. Additionally, due to some technical issues in the Heroku backend, the app currently crashes, so the Heroku app link is not provided as of now. It will be updated once the issues are solved and when the app is up and running_.
 
 ## Motivation
 
@@ -64,7 +77,7 @@ Every application or project comprises of multiple configuration settings. The m
 
 Firstly, the audio has to be embedded into the vector space which constitutes the features to learn. To facilitate that, [Mel-Frequency Cepstral Coefficients](https://en.wikipedia.org/wiki/Mel-frequency_cepstrum) (MFCC) is the most common widely used, feature extraction technique for audio data. MFCCs are derived using `Fourier transform` and `log-Mel spectrogram`. More detailed mathematical explanation  can be found [here](https://en.wikipedia.org/wiki/Mel-frequency_cepstrum). In order to extract these features, `librosa` is used. [data.py](./src/data.py) contains the code for preprocessing audio and extracting features from them. It reads the audio file, compute MFCC and pad them for fixed-sized vector for all audio files as CNN cannot handle sequential data. In order to avoid any hassles in  loading and processing plethora of audio files, it's a good practice to dump them to `.npy` arrays, which makes it easier for further usage.
 
-_**Note:** Due to large file size, the training data (.npy) files are uploaded to shared folder. Download it from []() and make sure that, the downloaded files are placed in [this directory](./dataset/train/). [Test directory](./dataset/test/) contains some sample audio files for local inferencing._
+_**Note:** Due to large file size, the training data (.npy) files are uploaded to shared folder. Download it from [here](https://www.dropbox.com/sh/4wjo8e8h4cg4xlo/AAAC3yR_kj5oq-ZcJopBosYYa?dl=0) and make sure that, the downloaded files are placed in [this directory](./dataset/train/). [Test directory](./dataset/test/) contains some sample audio files for local inferencing._
 
 ### CNN-LSTM Model
 
@@ -117,7 +130,7 @@ The aforementioned, same functionality is also implemented in the code as well. 
 
 Now, the model artifacts are ready and are built into an web API, it's the time for deployment to host this application. To facilitate them a step further, `docker` would be a great tool.  [Docker](https://www.docker.com/) eases the developers to package applications or software which can be easily reproduced on another machine. It uses containers to pack any applications with its dependencies to deploy in another environment. Generally, it is not a mandatory tool or step for deployment as it can also be done without dockers but they serve many purpose like portability, scalability, version control, no dependency hassles etc. Thus, docker is a great tool in the deployment cycle.
 
-The main idea of using docker in this project is, to package and build a `docker image` from the FLASK application with necessary files and containerize them into a `docker container` which can be deployed in any server (in this case - Heroku cloud server). [Dockerfile](./Dockerfile) contains all the commands needed to build an image. It serves as a bridge in the `CI/CD` pipeline.
+The main idea of using docker in this project is, to package and build a `docker image` from the FLASK application with necessary files and containerize them into a `docker container` which can be deployed in any server (in this case - Heroku cloud server). [Dockerfile](./Dockerfile) contains all the commands needed to build an image. The command to install external packages for any `Debian or Ubuntu` based systems are also added. The `docker` serves as a bridge in the `CI/CD` pipeline between the web app and cloud server.
 
 ### GitHub Actions
 
@@ -129,7 +142,7 @@ The main idea of using docker in this project is, to package and build a `docker
 
 [Heroku](https://www.heroku.com/) is a container-based cloud Platform as a Service (PaaS) to deploy, manage, and scale modern apps. It accounts for the CD pipeline. As a result of CI, when docker container is build, CD deploys it into `Heroku` cloud which hosts the application and can be accessed via `URL`. _In layman terms, the application is on the internet, up and running and can be accessed with website or URL_. The command for Heroku is included in the [Dockerfile](./Dockerfile) itself.
 
-As a result, the application can be accessed @ [here]() and snapshot of application UI is depicted in the  [Demo](#KeywordSpotterinHeroku-Demo) section.
+As a result, the application will be deployed and the snapshot of application UI is depicted in the [Demo](#KeywordSpotterinHeroku-Demo) section.
 
 ## Run locally
 
@@ -151,9 +164,9 @@ Install dependencies
   pip install -r requirements.txt
 ```
 
-Download `.npy` dataset from [here](). Make sure to put them in [./dataset/train/](./dataset/train/) directory. If not, it is fine to use a different directory but, make sure to specify the valid directory name or path in the [config.yaml](./config_dir/config.yaml) file.
+Download `.npy` dataset from [here](https://www.dropbox.com/sh/4wjo8e8h4cg4xlo/AAAC3yR_kj5oq-ZcJopBosYYa?dl=0). Make sure to put them in [./dataset/train/](./dataset/train/) directory. If not, it is fine to use a different directory but, make sure to specify the valid directory name or path in the [config.yaml](./config_dir/config.yaml) file.
 
-Train model
+Train the model
 
 ```bash
   python3 main.py
@@ -171,7 +184,7 @@ Use audio files from this [test directory](./dataset/test/) for local inferencin
 
 _**Note:** Assign necessary parameter variables and path in the [config.yaml](./config_dir/config.yaml). If it throws any error, please ensure that valid `PATH_NAMES` and `parameter` values are used._ 
 
-Additionally, to run via docker container , build image from [Dockerfile](./Dockerfile) and  run the container using `docker build` and `docker run` commands. As this is not a docker tutorial, it is not necessary to go more in-depth into dockers.
+Additionally, to run locally via docker container , build image from [Dockerfile](./Dockerfile) and  run the container using `docker build` and `docker run` commands. As this is not a docker tutorial, it is not necessary to go more in-depth into dockers.
 
 ## What's next?
 
