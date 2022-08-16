@@ -44,8 +44,6 @@ def transcribe():
     """
     
     recognized_keyword = ""
-    redirect(request.url)
-    
     if request.method == "POST":
         audio_file = request.files["file"]
         if audio_file.filename == "":
