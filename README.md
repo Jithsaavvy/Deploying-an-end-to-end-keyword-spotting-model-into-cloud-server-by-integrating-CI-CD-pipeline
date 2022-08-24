@@ -1,6 +1,6 @@
 # Deploying an end-to-end keyword spotting model into cloud server using Flask and Docker with CI/CD pipeline
 
-This project promulgates a `pipeline` that `trains` end-to-end keyword spotting models using input audio files, `tracks` experiments by logging the model artifacts, parameters and metrics, `build` them as a web application followed by `dockerizing` them into a container and deploys the application containing trained model artifacts as a docker container into the cloud server with `CI/CD` integration and releases.
+This project promulgates a `pipeline` that `trains` end-to-end keyword spotting models using input audio files, `tracks` experiments by logging the model artifacts, parameters and metrics, `build` them as a web application followed by `dockerizing` them into a container and deploys the application containing trained model artifacts as a docker container into the cloud server with `CI/CD` integration and automated releases.
 
 ## Author
 
@@ -42,7 +42,7 @@ MLOps is a budding field that productionalize ML models. `ML/DL` being a core re
 
 ## Description
 
-The project is a concoction of `research` (audio signal processing, keyword spotting, ASR), `development` (audio data processing, deep neural network training, evaluation) and `deployment` (building model artifacts, web app development, docker, cloud PaaS) with integrating `CI/CD` pipelines.
+The project is a concoction of `research` (audio signal processing, keyword spotting, ASR), `development` (audio data processing, deep neural network training, evaluation) and `deployment` (building model artifacts, web app development, docker, cloud PaaS) with integrating `CI/CD` pipelines and automated releases.
 
 | ![flowchart](./images/KWS_flowchart_main.JPG) |
 |:--:|
