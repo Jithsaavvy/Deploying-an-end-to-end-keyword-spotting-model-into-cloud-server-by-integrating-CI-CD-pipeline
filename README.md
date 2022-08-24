@@ -1,6 +1,6 @@
 # Deploying an end-to-end keyword spotting model into cloud server using Flask and Docker with CI/CD pipeline
 
-This project promulgates a `pipeline` that `trains` end-to-end keyword spotting models using input audio files, `tracks` experiments by logging the model artifacts, parameters and metrics, `build` them as a web application followed by `dockerizing` them into a container and deploys the application containing trained model artifacts as a docker container into the cloud server with `CI/CD` integration.
+This project promulgates a `pipeline` that `trains` end-to-end keyword spotting models using input audio files, `tracks` experiments by logging the model artifacts, parameters and metrics, `build` them as a web application followed by `dockerizing` them into a container and deploys the application containing trained model artifacts as a docker container into the cloud server with `CI/CD` integration and releases.
 
 ## Author
 
@@ -57,6 +57,7 @@ The project is a concoction of `research` (audio signal processing, keyword spot
 5. Writing a `docker` file and pushing it along with other application files including source code, artifacts etc. to the `GitHub` repository.
 6. Automating `CI/CD Pipeline` as follows:
     - Initialize `GitHub Actions` workflow for CI. This will automatically trigger the pipeline whenever it tracks a new commit to the repository.
+    - A new release will be created automatically when tags are pushed to the repository using `release.yaml`
     - Run the pipeline which builds the entire application along with the model to the docker image and then containerize into a `docker container`.
     - Deploy the docker container into `Heroku cloud server` that hosts the particular application. 
     - The user can access the app via `URL`. The app facilitates to upload an input short `audio .wav file`, in which the predicted keyword is returned from the model along with the probability and displayed as a result in the app UI/webpage.
@@ -136,7 +137,9 @@ The main idea of using docker in this project is, to package and build a `docker
 
 [GitHub Actions](https://docs.github.com/en/actions/learn-github-actions/understanding-github-actions) is a CI/CD platform which facilitates in automating the build, test, and deployment pipeline. Workflows can be created for building and testing every commit or pull request to the Git repository, or deploy merged pull requests to production. In our case, whenever the repository tracks a new commit, it triggers the CI/CD workflow pipeline. 
 
-`./github/workflows` defines the workflow that is needed to run the pipeline whenever triggered by an event. Considering the scope of the project, only one workflow is created to build, test and deploy the application.
+`./github/workflows` defines the workflows that are needed to run the pipeline whenever triggered by an event. Considering the scope of the project, **two** workflows are defined and used as follows:
+  - `main.yaml` for building, testing and deploying the application to the cloud. 
+  - `release.yaml` automatically creates a **GitHub Release** whenever a tag is committed with version number with relevant release details. All the releases can be accessed from [here](https://github.com/Jithsaavvy/Deploying-an-end-to-end-keyword-spotting-model-into-cloud-server-by-integrating-CI-CD-pipeline/releases).
 
 ### Heroku Cloud PaaS
 
