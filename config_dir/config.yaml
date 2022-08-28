@@ -16,5 +16,5 @@ paths:
 
 names:
   experiment_name: ASR_Exp
-  audio_file: ${hydra:runtime.cwd}/./recorded_four.wav
+  audio_file: ./dataset/test/audio1.wav
   metric_name: val_accuracy

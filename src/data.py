@@ -4,8 +4,8 @@
 @author: Jithin Sasikumar
 
 Load, preprocess audio dataset and extract features. The audio files are loaded,
-each file is preprocessed, and dumped as `.npy` files which is convenient to work 
-with. Thus, dumped `.npy` files can be loaded and performed with some additional 
+each file is preprocessed, and dumped as `.npy` files which is convenient to work
+with. Thus, dumped `.npy` files can be loaded and performed with some additional
 preprocessing steps and can be used for training.
 """
 
@@ -13,9 +13,9 @@ import os
 import librosa
 import numpy as np
 from tqdm import tqdm
-from dataclasses import dataclass
+from typing import List, Tuple
 from keras.utils import to_categorical
-from typing import List, Any, Tuple
+from dataclasses import dataclass
 from sklearn.model_selection import train_test_split
 from src.exception_handler import DirectoryError, ValueError
 
@@ -23,7 +23,7 @@ from src.exception_handler import DirectoryError, ValueError
 class Dataset:
     """
     Dataclass that represent a dataset which is flexible to be used
-    for any model training. 
+    for any model training.
     """
     x_train: np.ndarray = None
     y_train: np.array = None
@@ -97,8 +97,8 @@ class Preprocess:
                           fill_value = (index + 1)))
 
         return data, labels
-    
-    def preprocess_dataset(self, labels: List, 
+   
+    def preprocess_dataset(self, labels: List,
                             test_split_percent: float) -> Dataset:
         """
         Preprocess the loaded dataset.
@@ -123,8 +123,8 @@ class Preprocess:
         """
 
         X, y = self.__load_dataset(labels)
-        x_train, x_test, y_train, y_test = train_test_split(X, y, 
-                                           test_size = test_split_percent, 
+        x_train, x_test, y_train, y_test = train_test_split(X, y,
+                                           test_size = test_split_percent,
                                            random_state=42, shuffle = True)
 
         for data in (x_train, x_test, y_train, y_test):
@@ -134,13 +134,13 @@ class Preprocess:
         return Dataset(x_train, to_categorical(y_train, num_classes = len(labels)),
                        x_test, to_categorical(y_test, num_classes = len(labels)))
 
-    
-    def dump_audio_files(self, audio_files_dir: str, labels: List, n_mfcc: int, 
-                        mfcc_length: int, sampling_rate: int, 
+  
+    def dump_audio_files(self, audio_files_dir: str, labels: List, n_mfcc: int,
+                        mfcc_length: int, sampling_rate: int,
                         save_format: str = ".npy") -> None:
         """
         Method to load, process and dump audio files as `.npy` for training.
-        This method is `optional` and used only with audio files. If not, skip this 
+        This method is `optional` and used only with audio files. If not, skip this
         method and use preprocess_dataset() directly for training.
 
         Returns
@@ -161,11 +161,11 @@ class Preprocess:
 
     def wrap_labels(self) -> List:
         """
-        Wrapper funtion to read labels from file. 
-        
-        This is not a generic approach but it's required for inference. The main reason is, 
-        due to the memory limitation in Git, large files cannot be added. Even though Git LFS 
-        can be used but it's not feasible for this current application. So this function is 
+        Wrapper funtion to read labels from file.
+       
+        This is not a generic approach but it's required for inference. The main reason is,
+        due to the memory limitation in Git, large files cannot be added. Even though Git LFS
+        can be used but it's not feasible for this current application. So this function is
         a little play around.
 
         Returns:
@@ -178,11 +178,11 @@ class Preprocess:
             file.close()
             return labels
 
-def convert_audio_to_mfcc(audio_file_path: str, 
+def convert_audio_to_mfcc(audio_file_path: str,
                           n_mfcc: int, mfcc_length: int,
                           sampling_rate: int) -> np.ndarray:
     """
-    Helper function to convert each audio file to MFCC features. It's 
+    Helper function to convert each audio file to MFCC features. It's
     a generic function which can be called without an instance.
 
     Parameters
@@ -202,7 +202,8 @@ def convert_audio_to_mfcc(audio_file_path: str,
         Extracted MFCC features of the audio file.
     """
     audio, sampling_rate = librosa.load(audio_file_path, sr = sampling_rate)
-    mfcc_features: np.ndarray = librosa.feature.mfcc(audio, n_mfcc = n_mfcc, 
+    mfcc_features: np.ndarray = librosa.feature.mfcc(audio,
+                                                     n_mfcc = n_mfcc,
                                                      sr = sampling_rate)
     if(mfcc_length > mfcc_features.shape[1]):
         padding_width = mfcc_length - mfcc_features.shape[1]
@@ -210,7 +211,7 @@ def convert_audio_to_mfcc(audio_file_path: str,
                               pad_width =((0, 0), (0, padding_width)), mode ='constant')
     else:
         mfcc_features = mfcc_features[:, :mfcc_length]
-    
+   
     return mfcc_features
 
 def check_fileType(filename: str, extension: str) -> bool:

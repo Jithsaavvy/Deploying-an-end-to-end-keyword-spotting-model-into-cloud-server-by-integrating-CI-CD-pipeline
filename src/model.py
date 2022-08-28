@@ -6,20 +6,20 @@
 Defines and create model for training and evaluation.
 `CNN-LSTM` is used for this project with 1D convolutional layers
 followed by LSTM layers with self-attention and fully connected
-layers. This script provides the flexibility to add any other 
-models by inheriting Model(ABC). 
+layers. This script provides the flexibility to add any other
+models by inheriting Model(ABC).
 """
 
 from dataclasses import dataclass
 from typing import Tuple
-from tensorflow import keras
 from abc import ABC, abstractmethod
-from keras.models import Model, Sequential
+from tensorflow import keras
+from keras.models import Sequential
 from keras_self_attention import SeqSelfAttention
-from keras.layers import  Conv1D, MaxPooling1D, LSTM
+from keras.layers import Conv1D, MaxPooling1D, LSTM
 from keras.layers import Input, Dropout, BatchNormalization, Dense
 
-class Model(ABC):
+class Models(ABC):
     """
     Abstract base class that defines and creates model.
     """
@@ -32,9 +32,9 @@ class Model(ABC):
         pass
 
 @dataclass
-class CNN_LSTM_Model(Model):
+class CNN_LSTM_Model(Models):
     """
-    Dataclass to create CNN-LSTM model that inherits Model class.
+    Dataclass to create CNN-LSTM model that inherits Models class.
     """
     input_shape: Tuple[int, int]
     num_classes: int
@@ -42,7 +42,7 @@ class CNN_LSTM_Model(Model):
     def define_model(self) -> Sequential:
         """
         Method to define model that can be used for training
-        and inference. This existing model can also be tweaked 
+        and inference. This existing model can also be tweaked
         by changing parameters, based on the requirements.
 
         Parameters

@@ -14,7 +14,7 @@ from src.exception_handler import ValueError
 from src.experiment_tracking import MLFlowTracker, ModelSelection
 
 class Training:
-    def __init__(self, model: CNN_LSTM_Model, dataset: Dataset, 
+    def __init__(self, model: CNN_LSTM_Model, dataset: Dataset,
                 batch_size: int, epochs: int, learning_rate: float,
                 tracker: MLFlowTracker, metric_name: str) -> None:
         """
@@ -68,7 +68,7 @@ class Training:
         """
 
         if self.metric_name is None:
-            raise ValueError(f"Please provide the metric name for model selection !!!")
+            raise ValueError("Please provide the metric name for model selection !!!")
             
         print("Training started.....")
         self.model.compile(loss='categorical_crossentropy',
@@ -76,9 +76,9 @@ class Training:
                         metrics=['accuracy'])
                         
         history = self.model.fit(self.dataset_.x_train, self.dataset_.y_train,
-                        batch_size = self.batch_size, 
-                        epochs = self.epochs, 
-                        verbose = 1, 
+                        batch_size = self.batch_size,
+                        epochs = self.epochs,
+                        verbose = 1,
                         validation_data = (self.dataset_.x_test, self.dataset_.y_test))
 
         return ModelSelection(self.tracker.find_best_model(self.metric_name))
