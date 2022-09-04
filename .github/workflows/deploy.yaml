@@ -1,17 +1,17 @@
-# workflow name.
-name: Deploy KWS web app to Heroku.
+# Name of the workflow to deploy KWS web app to Heroku cloud
+name: Build and deploy
 
-# Run workflow on every push to main branch.
+# Run workflow on every push to main branch
 on:
   push:
     branches: [main]
 
-# Workflows jobs.
+# Workflow jobs
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      # Check-out your repository.
+      # Check-out the repository
       - name: Checkout
         uses: actions/checkout@v2
 
@@ -30,9 +30,9 @@ jobs:
           # Dockerfile name
           dockerfile_name: Dockerfile
 
-          # Additional options of docker build command.
+          # Additional options of docker build command
           docker_options: "--no-cache"
 
           # (Optional, default: "web")
-          # By default, this argument is set to "web".
+          # By default, this argument is set to "web"
           process_type: web

@@ -1,5 +1,10 @@
 # Deploying an end-to-end keyword spotting model into cloud server using Flask and Docker with CI/CD pipeline
 
+![deploy](https://github.com/Jithsaavvy/Deploying-an-end-to-end-keyword-spotting-model-into-cloud-server-by-integrating-CI-CD-pipeline/workflows/Build%20and%20deploy/badge.svg)
+![tests](https://github.com/Jithsaavvy/Deploying-an-end-to-end-keyword-spotting-model-into-cloud-server-by-integrating-CI-CD-pipeline/workflows/Tests/badge.svg)
+![releases](https://img.shields.io/github/v/release/Jithsaavvy/Deploying-an-end-to-end-keyword-spotting-model-into-cloud-server-by-integrating-CI-CD-pipeline)
+
+
 This project promulgates a `pipeline` that `trains` an end-to-end keyword spotting model using input audio files, `tracks` experiments by logging the model artifacts, parameters and metrics, `build` them as a web application followed by `dockerizing` them into a container and deploys the application containing trained model artifacts as a docker container into the cloud server with `CI/CD` integration, automated tests and releases.
 
 ## Author

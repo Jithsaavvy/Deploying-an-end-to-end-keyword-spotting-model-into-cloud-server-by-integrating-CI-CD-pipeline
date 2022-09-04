@@ -1,31 +1,36 @@
+# Name of the workflow to run automated tests
 name: Tests
 
+# Run workflow on every push to main branch
 on:
   push:
     branches: [main]
-  pull_request:
 
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
+      # Check-out the repository
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
         with:
           python-version: 3.8
 
+      # Cache the Poetry installation
       - name: cache poetry install
         uses: actions/cache@v2
         with:
           path: ~/.local
           key: poetry-1.1.15-0
 
+      # Install Poetry
       - uses: snok/install-poetry@v1
         with:
           version: 1.1.15
           virtualenvs-create: true
           virtualenvs-in-project: true
 
+      # Cache the dependencies from `pyproject.toml` and `poetry.lock`
       - name: cache deps
         id: cache-deps
         uses: actions/cache@v2
@@ -33,11 +38,13 @@ jobs:
           path: .venv
           key: pydeps-${{ hashFiles('**/poetry.lock') }}
 
+      # Install all dependencies. `--no-root` is used to avoid caching the code itself
       - run: poetry install --no-interaction --no-root
         if: steps.cache-deps.outputs.cache-hit != 'true'
 
       - run: poetry install --no-interaction
       - run: sudo apt-get install -y libsndfile1
 
+      # Run tests using Pytest
       - name: Run tests
         run: poetry run pytest
