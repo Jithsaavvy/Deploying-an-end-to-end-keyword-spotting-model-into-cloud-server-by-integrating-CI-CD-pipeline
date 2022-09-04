@@ -6,7 +6,7 @@ ENV PYTHONUNBUFFERED = 1 \
     PIP_NO_CACHE_DIR = off \
     PIP_DISABLE_PIP_VERSION_CHECK = on \
     PIP_DEFAULT_TIMEOUT = 100 \
-    POETRY_VERSION = 1.1.15 \
+    POETRY_VERSION = 1.1.14 \
     POETRY_HOME = "/opt/poetry" \
     POETRY_VIRTUALENVS_IN_PROJECT = true \
     POETRY_NO_INTERACTION = 1 \
@@ -28,7 +28,10 @@ RUN : \
       libsndfile1 \
       libsndfile1-dev
 
-RUN curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
+ENV GET_POETRY_IGNORE_DEPRECATION=1
+
+RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py \
+    | POETRY_VERSION=1.1.14 python
 
 ENV PATH="${PATH}:/root/.poetry/bin"
 
